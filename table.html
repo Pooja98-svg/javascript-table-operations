@@ -12,6 +12,7 @@
     <body >
 
         <div id="editable" style="width:800px; margin:0 auto; display:none; margin-left:1%">
+           
             <div class="row">
                 <div class="colmd-4">
                     <div class="container">
@@ -33,12 +34,20 @@
                         <input type="mail" id="edit-email" class="form-control"></input>
                     </div>
                 </div>
+                
                 <div class="colmd-4">
                     <div class="container">
                         <Button type="button" id="updated-btn" onclick="save()" class="btn btn-warning ">Update</Button>
                     </div>
                 </div>
+                <div class="colmd-4">
+                    <div class="container">
+                        <Button type="button" id="updated-btn" onclick="cancel()" class="btn btn-secondary ">Cancel</Button>
+                    </div>
+                </div>
             </div>
+            
+           
         </div>
         <script src="table.js">
            
@@ -109,13 +118,7 @@
                             <script>
                             
 
-                                function deleteRow(x){
-                                    
-                                var row = x.parentNode.parentNode;
-                                row.parentNode.removeChild(row);
-                                
-                                   
-                                }
+                               
 
                         
 
@@ -123,7 +126,7 @@
 
                                      function create() {
 
-                                    
+                                   
 
 
                                     var name = document.getElementById("empname").value;
@@ -131,32 +134,40 @@
                                     var dob = document.getElementById("dob").value;
                                     var empid = document.getElementById("emp-id").value;
                                     var table = document.getElementById("mytable");
+                                         if (empid == "" || name == "" || dob== "" || email == "") {
+                                             alert("All fields are required!");
+                                         }
+                                        else{
+                                             var date = new Date(dob);
 
-                                         var date = new Date(dob);
+                                             var d = date.getDate();
+                                             var m = date.getMonth() + 1;
+                                             var y = date.getFullYear();
+                                             var dateString = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
 
-                                         var d = date.getDate();
-                                         var m = date.getMonth() + 1;
-                                         var y = date.getFullYear();
-                                         var dateString = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
+                                             var row = table.insertRow(1);
+                                             var cell1 = row.insertCell(0);
+                                             var cell2 = row.insertCell(1);
+                                             var cell3 = row.insertCell(2);
+                                             var cell4 = row.insertCell(3);
+                                             var cell5 = row.insertCell(4);
 
-                                    var row = table.insertRow(1);
-                                    var cell1 = row.insertCell(0);
-                                    var cell2 = row.insertCell(1);
-                                    var cell3=row.insertCell(2);
-                                    var cell4=row.insertCell(3);
-                                    var cell5=row.insertCell(4);
-                                    var cell6=row.insertCell(5);
-                                    cell1.innerHTML =empid;
-                                    cell2.innerHTML =name;
-                                    cell3.innerHTML =dateString;
-                                    cell4.innerHTML=email;
-                                    cell5.innerHTML=`<button  id="btn-update" onclick="return updateDetails(this)" class="btn btn-primary"><i class="bi-pencil" style="margin-right: 5px;"></i>Update</button>`;
-                                    cell6.innerHTML =` <button class="btn btn-danger" onclick="return deleteRow(this)" style="margin-left:20px;"><i class="bi-trash"
+                                             cell1.innerHTML = empid;
+                                             cell2.innerHTML = name;
+                                             cell3.innerHTML = dateString;
+                                             cell4.innerHTML = email;
+                                             cell5.innerHTML = `<button  id="btn-update" onclick="return updateDetails(this)" class="btn btn-primary"><i class="bi-pencil" style="margin-right: 5px;"></i>Update</button>
+                                     <button class="btn btn-danger" onclick="return alertWindow(this)" style="margin-left:20px;"><i class="bi-trash"
         style=" margin-right:5px;"></i>Delete</button>`;
-        var name = document.getElementById("empname").value='';
-                                    var email = document.getElementById("email").value='';
-                                    var dob = document.getElementById("dob").value='';
-                                    var empid = document.getElementById("emp-id").value='';
+                                             var name = document.getElementById("empname").value = '';
+                                             var email = document.getElementById("email").value = '';
+                                             var dob = document.getElementById("dob").value = '';
+                                             var empid = document.getElementById("emp-id").value = '';
+                                        }
+
+
+
+                                         
                                 }
                             </script>
                             <Button type="button" onclick="return create()" class="btn btn-primary">Create</Button>                    
@@ -190,8 +201,7 @@
                     <td >maruthupandian72@gmail.com</td>
                     <td><button class="btn btn-primary" type="submit" onclick="updateDetails(this)" id="btn-update" ><i class="bi-pencil" style="margin-right: 5px;"></i>Update</button>
                     
-                    </td>
-                    <td onclick='return false'><button id="deleteRow" class="btn btn-danger" onclick="return deleteRow(this)" style="margin-left:20px;"><i
+                    <button id="deleteRow" class="btn btn-danger" onclick="return alertWindow(this)" style="margin-left:20px;"><i
                             class="bi-trash" style=" margin-right:5px;"></i>Delete</button></td>
                     
                 </tr>
