@@ -56,6 +56,7 @@ function add_invisible(){
 
    
    function updateDetails(td){
+       //example commit
     //     var empid = document.getElementById("edit-empid");
     // var empname = document.getElementById("edit-name");
     // var dob = document.getElementById("edit-dob");
